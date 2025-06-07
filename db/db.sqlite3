@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS projects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS reports (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  projectId INTEGER,
+  content TEXT,
+  FOREIGN KEY(projectId) REFERENCES projects(id)
+);
