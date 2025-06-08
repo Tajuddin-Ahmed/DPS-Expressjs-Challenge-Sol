@@ -1,11 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
+
 import projectRoutes from "./routes/projects";
+import reportRoutes from "./routes/reports";
+import authMiddleware from "./middleware/auth";
 
 const app = express();
 app.use(bodyParser.json());
 
-app.use("/projects", projectRoutes);
+app.use("/projects", authMiddleware, projectRoutes);
+app.use("/reports", authMiddleware, reportRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
