@@ -5,6 +5,7 @@ export interface Project {
   description: string;
 }
 
+// Get all the projects
 export const getAllProjects = (): Project[] => {
   try {
     return db.query("SELECT * FROM projects");
@@ -12,6 +13,8 @@ export const getAllProjects = (): Project[] => {
     throw new Error("Failed to fetch projects");
   }
 };
+
+// Get a Single project by id
 
 export const getProjectById = (id: number): Project => {
   try {
@@ -36,6 +39,8 @@ export const getProjectById = (id: number): Project => {
   }
 };
 
+// Create New Project
+
 export const createProject = (
   name: string,
   description: string
@@ -51,6 +56,8 @@ export const createProject = (
   }
 };
 
+// Update a single project
+
 export const updateProject = (
   id: number,
   name: string,
@@ -65,6 +72,8 @@ export const updateProject = (
     throw new Error("Failed to update project");
   }
 };
+
+// delete a single project
 
 export const deleteProject = (id: number): void => {
   try {

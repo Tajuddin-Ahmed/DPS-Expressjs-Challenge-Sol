@@ -6,6 +6,8 @@ export interface Report {
   content: string;
 }
 
+// Get all reports
+
 export const getAllReports = (): Report[] => {
   try {
     return db.query("SELECT * FROM reports");
@@ -13,6 +15,8 @@ export const getAllReports = (): Report[] => {
     throw new Error("Failed to fetch reports");
   }
 };
+
+// Create a new reports
 
 export const createReport = (
   project_id: number,
@@ -29,6 +33,8 @@ export const createReport = (
   }
 };
 
+// Update a single Report
+
 export const updateReport = (id: number, content: string): void => {
   try {
     db.run("UPDATE reports SET content = @content WHERE id = @id", {
@@ -40,6 +46,8 @@ export const updateReport = (id: number, content: string): void => {
   }
 };
 
+// Delete a single report
+
 export const deleteReport = (id: number): void => {
   try {
     db.run("DELETE FROM reports WHERE id = @id", { id });
@@ -47,6 +55,8 @@ export const deleteReport = (id: number): void => {
     throw new Error("Failed to delete report");
   }
 };
+
+// Find all reports with 3 repeated words
 
 export const findReportsWithRepeatedWords = (): Report[] => {
   try {
