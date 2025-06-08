@@ -2,29 +2,40 @@ import express from "express";
 import {
   getAllReports,
   createReport,
-  findReportsWithRepeatedWords,
   updateReport,
   deleteReport,
+  findReportsWithRepeatedWords,
 } from "../models/reportModel";
 
 const router = express.Router();
 
-router.get("/", async (req: any, res: any) => res.json(await getAllReports()));
-router.post("/", async (req, res) => {
+router.get("/", (req, res) => {
+  const reports = getAllReports();
+  res.json(reports);
+});
+
+router.get("/repeated-words", (req, res) => {
+  const filteredReports = findReportsWithRepeatedWords();
+  res.json(filteredReports);
+});
+
+router.post("/", (req, res) => {
   const { project_id, content } = req.body;
-  res.json(await createReport(project_id, content));
+  const result = createReport(project_id, content);
+  res.status(201).json(result);
 });
-router.put("/:id", async (req, res) => {
+
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
   const { content } = req.body;
-  await updateReport(Number(req.params.id), content);
-  res.json({ success: true });
+  updateReport(Number(id), content);
+  res.json({ message: "Project updated successfully" });
 });
-router.delete("/:id", async (req, res) => {
-  await deleteReport(Number(req.params.id));
-  res.json({ success: true });
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  deleteReport(Number(id));
+  res.json({ message: "Project deleted successfully" });
 });
-router.get("/repeated-words", async (req: any, res: any) =>
-  res.json(await findReportsWithRepeatedWords())
-);
 
 export default router;

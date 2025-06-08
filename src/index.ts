@@ -8,8 +8,8 @@ import authMiddleware from "./middleware/auth";
 const app = express();
 app.use(bodyParser.json());
 
-app.use("/projects", authMiddleware, projectRoutes);
-app.use("/reports", authMiddleware, reportRoutes);
+app.use("/api/reports", authMiddleware, reportRoutes);
+app.use("/api/projects", authMiddleware, projectRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
